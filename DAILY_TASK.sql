@@ -1,0 +1,1 @@
+COGS report a 3 digit korte hobe
