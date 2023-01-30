@@ -1,0 +1,30 @@
+SELECT   ooha.header_id order_header_id, ottt.NAME order_type_name,
+         ooha.order_number, ooha.ordered_date,
+         ooha.transactional_curr_code order_currency, hp.party_id,
+         hp.party_number, hp.party_name customer_name,
+         hca.cust_account_id customer_id, hca.account_number customer_number,
+         oola.line_id order_line_id, oola.line_number, oola.inventory_item_id,
+         msib.segment1 item_number, msib.description item_desc,
+         oola.attribute15 superseded_item, oola.order_quantity_uom,
+         oola.ordered_quantity, oola.unit_selling_price
+    FROM oe_order_headers_all ooha,
+         oe_order_lines_all oola,
+         oe_transaction_types_tl ottt,
+         mtl_system_items_b msib,
+         mtl_parameters mp,
+         org_organization_definitions ood,
+         hz_parties hp,
+         hz_cust_accounts hca
+   WHERE ooha.header_id = oola.header_id
+     AND ottt.transaction_type_id(+) = ooha.order_type_id
+     AND ottt.LANGUAGE = USERENV (‘LANG’)
+     AND hca.cust_account_id(+) = ooha.sold_to_org_id
+     AND hp.party_id = hca.party_id
+     AND ooha.org_id = oola.org_id(+)
+     AND msib.inventory_item_id = oola.inventory_item_id
+     AND msib.organization_id = mp.master_organization_id
+     AND mp.organization_id = ood.organization_id
+     AND mp.master_organization_id = mp.organization_id
+     AND ood.operating_unit = fnd_profile.VALUE (‘ORG_ID’)
+     AND ooha.order_number = :sales_order_number
+ORDER BY ottt.NAME, ooha.order_number, oola.line_number;

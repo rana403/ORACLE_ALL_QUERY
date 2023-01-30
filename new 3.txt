@@ -1,0 +1,137 @@
+Tutorial series overview
+E-commerce Project Preview
+Creating New Project User & Admin
+Tools Which & Why
+Configure Manifest JSON
+Configure Manifest JSON
+Configure Project Default Service Worker
+Configure Web Push Notification
+Configure Web Push Notification
+Configure Web Push Notification
+Install starting dependecies and create starting file folder
+Creating Neccessary Components For Home
+Config Routing
+Managing CSS Files
+Managing Transition and Appearing Animation
+Featured Product Component
+Categories Component
+Collection Product Component
+New Arrival Slick Carousel
+New Arrival Slick Carousel
+Accordion Menu Component
+Accordion Menu Component
+Home Big Slider
+Nav Menu Desktop
+Nav Menu Desktop
+Nav Menu Desktop
+Deploy Real Server And Test
+Mobile View Menu
+Mobile View Menu
+Mobile View Menu
+Mobile View Menu
+Mobile View Menu
+Footer View Desktop
+Footer View Desktop
+Deploy And Test
+User onboard component
+User onboard component
+Contact page with map
+Other's Page
+Product Details Page
+Notification Page
+Favourite Items Page
+Modify Mobile Nav Side Bar
+Build Deploy And Test
+Multiple language option
+Multiple language option
+Multiple language option
+Cart List
+Cart List
+Change Admin Portion to laravel 8
+React Mix With Laravel
+React Mix With Laravel
+Start Managing Source Code GitHub
+Create Visitor Details Rest API
+Consume Visitor Details API Form Client
+Create Contact Rest API
+Consume Contact Rest API From Client Side
+Consume Contact Rest API From Client Side
+Consume Contact Rest API From Client Side
+Consume Contact Rest API From Client Side
+Create Site Info API
+Consume Site Info API in Client Side  
+Consume Site Info API in Client Side  
+Consume Site Info API in Client Side  
+Consume Site Info API in Client Side  
+Consume Site Info API in Client Side  
+Consume Site Info API in Client Side  
+Consume Site Info API in Client Side  
+Deploy With Server Side And Client Side
+Deploy With Server Side And Client Side
+Understanding Category SubCategory Lavel
+Create Category Level 1 And Level 2 Table
+Create Category Level 1 And Level 2 Table
+Select Category Subcategory And Make JSON Array
+Consume Category Subcategory API
+Consume Category Subcategory API
+Consume Category Subcategory API
+Consume Category Subcategory API
+Create Product List API
+Create Product List API
+Create Product List API
+Consume Product List API
+Consume Product List API
+Consume Product List API
+Consume Product List API
+Create Product List API
+Consume Product List API
+Consume Product List API
+Consume Product List API
+Create API For Home Slider
+Consume API For Home Slider
+Consume API For Home Slider
+Managing Loader Placeholder
+Managing Loader Placeholder
+Managing Loader Placeholder
+Managing Loader Placeholder
+Create Product Details API
+Create Product Details API
+Consume Product Details API
+Consume Product Details API
+Consume Product Details API
+Consume Product Details API
+Consume Product Details API
+Deploy And Test
+Consume Product Details API
+Create Notification History API
+Consume Notification History API
+Routing Update With Key
+Breadcrumbs Navigation
+Create Search APi
+Consume Search API
+Consume Search API
+Consume Search API
+Working With SMS Verification Code
+ Working With SMS Verification Code
+ Working With SMS Verification Code
+Working With SMS Verification Code
+Working With SMS Verification Code
+Working With SMS Verification Code
+Working With SMS Verification Code
+Working With SMS Verification Code
+Working With SMS Verification Code
+Working With SMS Verification Code
+Working With Login Logout
+Working With Login Logout
+Product Image Zoom
+Product Image Zoom
+Related Product Suggest
+Related Product Suggest
+ 
+ 
+ 
+
+   
+  
+  
+  

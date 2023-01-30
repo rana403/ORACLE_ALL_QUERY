@@ -1,0 +1,203 @@
+/* Formatted on 2015/03/18 16:26 (Formatter Plus v4.8.8) */
+SELECT DISTINCT rcta.trx_number invcno, TRUNC (rcta.trx_date) invcdt,
+                oha.salesrep_id, oha.order_number ordno,
+                oha.flow_status_code status, wnd.delivery_id deliverchaln,
+                ola.inventory_item_id, mck.segment2 prodgrp,
+                mck.segment3 prodsubgrp, msib.segment1 itmcode,
+                msib.description itmdesc, SUM (ola.invoiced_quantity) invcqty,
+                SUM (ola.invoiced_quantity * ola.unit_selling_price) invcamt,
+                --party.party_id, party.party_number, 
+                party.party_name,hza.ACCOUNT_NUMBER acno,
+                oha.sales_channel_code, ol.meaning salschanel, rsa.NAME,
+                org.organization_name orgname, org.organization_id,
+                ola.ship_from_org_id, ola.org_id,
+                NVL (SUBSTR (hpu.NAME, 1, INSTR (hpu.NAME, '-', 1, 1) - 1),
+                     hpu.NAME
+                    ) opu
+           FROM ra_customer_trx_all rcta,
+-- ra_customer_trx_lines_all rctl,
+                oe_order_headers_all oha,
+                oe_order_lines_all ola,
+                mtl_system_items_b msib,
+                ra_salesreps_all rsa,
+                apps.oe_lookups ol,
+                hz_cust_accounts hza,
+                hz_parties party,
+                mtl_item_categories mic,
+                mtl_categories_kfv mck,
+                wsh_new_deliveries wnd,
+                org_organization_definitions org,
+                hr_operating_units hpu
+          WHERE
+ oha.ORDER_NUMBER = 2014001266 and--2014001910 and--   2014000613 and
+-- rcta.CUSTOMER_TRX_ID=rctl.CUSTOMER_TRX_ID and
+                oha.header_id = ola.header_id
+            AND
+-- oha.ORDER_NUMBER =to_char(rcta.CT_REFERENCE) and
+                oha.order_number = rcta.interface_header_attribute1
+            AND oha.org_id = rcta.org_id
+            AND ola.inventory_item_id = msib.inventory_item_id
+            AND rsa.salesrep_id(+) = oha.salesrep_id
+            AND oha.org_id = rcta.org_id
+            AND oha.sales_channel_code = ol.lookup_code(+)
+            AND party.party_id = hza.party_id
+            AND rcta.bill_to_customer_id = hza.cust_account_id
+            AND oha.sold_to_org_id = hza.cust_account_id
+            AND ola.inventory_item_id = mic.inventory_item_id(+)
+            AND mic.category_id = mck.category_id
+            AND msib.organization_id = ola.ship_from_org_id
+            AND mic.organization_id = ola.ship_from_org_id
+            AND
+-- rctl.INTERFACE_LINE_ATTRIBUTE3=to_char(wnd.DELIVERY_ID) and
+                oha.header_id = wnd.source_header_id
+            AND TO_CHAR (wnd.delivery_id) = rcta.interface_header_attribute3
+            AND org.organization_id(+) = wnd.organization_id
+            AND hpu.organization_id = ola.org_id
+            AND hpu.organization_id = org.operating_unit
+            AND oha.org_id IN (279, 148, 121)
+            AND oha.flow_status_code IN ('CLOSED', 'BOOKED')
+            AND mck.segment1 IN ('FG', 'Finished Goods')
+            AND oha.org_id = NVL (:popu, oha.org_id)
+            AND hza.ACCOUNT_NUMBER = NVL (:party, hza.ACCOUNT_NUMBER)
+            AND oha.salesrep_id = NVL (:salsprsn, oha.salesrep_id)
+            AND mck.segment2 = NVL (:prodgrp, mck.segment2)
+            AND mck.segment3 = NVL (:prodsubgrp, mck.segment3)
+            AND oha.flow_status_code = NVL (:pstatus, oha.flow_status_code)
+            AND oha.sales_channel_code = NVL (:slschanl, oha.sales_channel_code)
+            AND nvl(ola.PREFERRED_GRADE,-1)=nvl(:pgrad,nvl(ola.PREFERRED_GRADE,-1)) and
+                TRUNC (rcta.trx_date) BETWEEN NVL (TO_DATE (:datefr,
+                                                            'dd-mm-rr'
+                                                           ),
+                                                   TRUNC (rcta.trx_date)
+                                                  )
+                                          AND NVL (TO_DATE (:dateto,
+                                                            'dd-mm-rr'
+                                                           ),
+                                                   TRUNC (rcta.trx_date)
+                                                  )
+       GROUP BY rcta.trx_number,
+                TRUNC (rcta.trx_date),
+                oha.salesrep_id,
+                oha.order_number,
+                wnd.delivery_id,
+                ola.inventory_item_id,
+                mck.segment2,
+                mck.segment3,
+                msib.segment1,
+                msib.description,
+              --  party.party_id,
+               -- party.party_number,
+                party.party_name,
+                oha.sales_channel_code,
+                ol.meaning,
+                rsa.NAME,
+                org.organization_name,
+                ola.org_id,
+                hpu.NAME,
+                oha.flow_status_code,
+                org.organization_id,
+                ola.ship_from_org_id,hza.ACCOUNT_NUMBER
+       ORDER BY rcta.trx_number, TRUNC (rcta.trx_date);
+====================
+/* Formatted on 2015/03/18 16:26 (Formatter Plus v4.8.8) */
+SELECT DISTINCT rcta.trx_number invcno, TRUNC (rcta.trx_date) invcdt,
+                oha.salesrep_id, oha.order_number ordno,
+                oha.flow_status_code status, wnd.delivery_id deliverchaln,
+                ola.inventory_item_id, mck.segment2 prodgrp,
+                mck.segment3 prodsubgrp, msib.segment1 itmcode,
+                msib.description itmdesc,  (ola.invoiced_quantity) invcqty,
+                 (ola.invoiced_quantity * ola.unit_selling_price) invcamt,
+                --party.party_id, party.party_number, 
+                party.party_name,hza.ACCOUNT_NUMBER acno,
+                oha.sales_channel_code, ol.meaning salschanel, rsa.NAME,
+                org.organization_name orgname, org.organization_id,
+                ola.ship_from_org_id, ola.org_id,
+                NVL (SUBSTR (hpu.NAME, 1, INSTR (hpu.NAME, '-', 1, 1) - 1),
+                     hpu.NAME
+                    ) opu
+           FROM ra_customer_trx_all rcta,
+-- ra_customer_trx_lines_all rctl,
+                oe_order_headers_all oha,
+                oe_order_lines_all ola,
+                mtl_system_items_b msib,
+                ra_salesreps_all rsa,
+                apps.oe_lookups ol,
+                hz_cust_accounts hza,
+                hz_parties party,
+                mtl_item_categories mic,
+                mtl_categories_kfv mck,
+                wsh_new_deliveries wnd,
+                org_organization_definitions org,
+                hr_operating_units hpu
+          WHERE
+ oha.ORDER_NUMBER = 2014001266 and--2014001910 and--   2014000613 and
+-- rcta.CUSTOMER_TRX_ID=rctl.CUSTOMER_TRX_ID and
+                oha.header_id = ola.header_id
+            AND
+-- oha.ORDER_NUMBER =to_char(rcta.CT_REFERENCE) and
+                oha.order_number = rcta.interface_header_attribute1
+            AND oha.org_id = rcta.org_id
+            AND ola.inventory_item_id = msib.inventory_item_id
+            AND rsa.salesrep_id(+) = oha.salesrep_id
+            AND oha.org_id = rcta.org_id
+            AND oha.sales_channel_code = ol.lookup_code(+)
+            AND party.party_id = hza.party_id
+            AND rcta.bill_to_customer_id = hza.cust_account_id
+            AND oha.sold_to_org_id = hza.cust_account_id
+            AND ola.inventory_item_id = mic.inventory_item_id(+)
+            AND mic.category_id = mck.category_id
+            AND msib.organization_id = ola.ship_from_org_id
+            AND mic.organization_id = ola.ship_from_org_id
+            AND
+-- rctl.INTERFACE_LINE_ATTRIBUTE3=to_char(wnd.DELIVERY_ID) and
+                oha.header_id = wnd.source_header_id
+            AND TO_CHAR (wnd.delivery_id) = rcta.interface_header_attribute3
+            AND org.organization_id(+) = wnd.organization_id
+            AND hpu.organization_id = ola.org_id
+            AND hpu.organization_id = org.operating_unit
+            AND oha.org_id IN (279, 148, 121)
+            AND oha.flow_status_code IN ('CLOSED', 'BOOKED')
+            AND mck.segment1 IN ('FG', 'Finished Goods')
+            AND oha.org_id = NVL (:popu, oha.org_id)
+            AND hza.ACCOUNT_NUMBER = NVL (:party, hza.ACCOUNT_NUMBER)
+            AND oha.salesrep_id = NVL (:salsprsn, oha.salesrep_id)
+            AND mck.segment2 = NVL (:prodgrp, mck.segment2)
+            AND mck.segment3 = NVL (:prodsubgrp, mck.segment3)
+            AND oha.flow_status_code = NVL (:pstatus, oha.flow_status_code)
+            AND oha.sales_channel_code = NVL (:slschanl, oha.sales_channel_code)
+            AND nvl(ola.PREFERRED_GRADE,-1)=nvl(:pgrad,nvl(ola.PREFERRED_GRADE,-1)) and
+                TRUNC (rcta.trx_date) BETWEEN NVL (TO_DATE (:datefr,
+                                                            'dd-mm-rr'
+                                                           ),
+                                                   TRUNC (rcta.trx_date)
+                                                  )
+                                          AND NVL (TO_DATE (:dateto,
+                                                            'dd-mm-rr'
+                                                           ),
+                                                   TRUNC (rcta.trx_date)
+                                                  )
+--       GROUP BY rcta.trx_number,
+--                TRUNC (rcta.trx_date),
+--                oha.salesrep_id,
+--                oha.order_number,
+--                wnd.delivery_id,
+--                ola.inventory_item_id,
+--                mck.segment2,
+--                mck.segment3,
+--                msib.segment1,
+--                msib.description,
+--              --  party.party_id,
+--               -- party.party_number,
+--                party.party_name,
+--                oha.sales_channel_code,
+--                ol.meaning,
+--                rsa.NAME,
+--                org.organization_name,
+--                ola.org_id,
+--                hpu.NAME,
+--                oha.flow_status_code,
+--                org.organization_id,
+--                ola.ship_from_org_id,hza.ACCOUNT_NUMBER
+       ORDER BY rcta.trx_number, TRUNC (rcta.trx_date);
+
+===========================
